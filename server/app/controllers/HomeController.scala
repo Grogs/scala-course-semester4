@@ -4,6 +4,7 @@ import javax.inject._
 
 import play.api.libs.ws.WSClient
 import play.api.mvc._
+import scala.concurrent.ExecutionContext.global
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -18,8 +19,17 @@ class HomeController @Inject()  (ws: WSClient) extends InjectedController {
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index = Action {
-    Ok(views.html.index("Welcome to Full Stack Scala"))
+  def index = Action.async {
+
+      ws.url("http://ifconfig.me").withHeaders(USER_AGENT -> "curl")
+        .get()
+        .map( body =>
+         Ok(body.body)
+        )(global)
+  }
+
+  def time = Action {
+    Ok(views.html.time(System.currentTimeMillis().toString))
   }
 
 }

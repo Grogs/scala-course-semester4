@@ -21,7 +21,7 @@ class HomeController @Inject()  (ws: WSClient) extends InjectedController {
    */
   def index = Action.async {
 
-      ws.url("http://ifconfig.me").withHeaders(USER_AGENT -> "curl")
+      ws.url("http://ifconfig.me").withHttpHeaders(USER_AGENT -> "curl")
         .get()
         .map( body =>
          Ok(body.body)

@@ -7,13 +7,15 @@ import model.Coordinates
 @Singleton
 class GeographyService {
 
+  val destinations = Map(
+    "london" -> Coordinates(51.507351, -0.127758),
+    "paris" -> Coordinates(48.856614, 2.352222),
+    "bath" -> Coordinates(51.375801, -2.359904),
+    "birmingham" -> Coordinates(52.486243, -1.890401)
+  )
+
   def lookupDestination(name: String): Option[Coordinates] = {
-    //Takes a destination as a string, and returns the coordinates, if available.
-
-    //We return a Option[Coordinate] because the the destination may not be supported.
-    //If you are unfamiliar with Scala's Option, this is a good resource: http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html
-
-    throw new NotImplementedError("You need to implement this method to return the coordinates specified in the test.")
+    destinations.get(name.toLowerCase.trim)
   }
 
 }

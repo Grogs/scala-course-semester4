@@ -3,6 +3,14 @@
 Today we will review the backend services we implemented last week.  
 Then we will create a basic search results page.
 
+For lesson5 please add this to the view you created:
+
+        <link rel='stylesheet' href='@routes.WebJarAssets.at(webJarAssets.locate("css/bootstrap.css"))'>
+        <script src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.js"))" type="text/javascript"></script>
+        <script src="@routes.WebJarAssets.at(webJarAssets.locate("js/bootstrap.js"))" type="text/javascript"></script>
+
+
+
 Tasks
 * Checkout the `lesson4`branch
 * Run `sbt test` to see the failing tests.

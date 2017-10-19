@@ -1,4 +1,4 @@
-# Lesson 4
+# Lesson 4 & 5
 
 Today we will review the backend services we implemented last week.  
 Then we will create a basic search results page.
@@ -20,3 +20,4 @@ Tasks
               If we called `/comments?page=1`, then `1` would be passed into the  `page` parameter
             * For more info, see docs: https://www.playframework.com/documentation/2.5.x/ScalaRouting
         * You will need to add a template in the `views` package.
+            * Docs for Play's templates: https://www.playframework.com/documentation/2.5.x/ScalaTemplates

@@ -7,7 +7,7 @@ import play.api.test._
 
 class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
 
-  "HotelsController.search" should {
+  "HotelsController.search - Lesson 4" should {
 
     "send 200 on valid request" in {
 
@@ -48,5 +48,76 @@ class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
     }
 
   }
+
+
+
+  "HotelsController.search - Lesson 5" should {
+
+    "display results in a table" in {
+
+      val body = route(app, FakeRequest(GET, "/hotels/search?destination=london&distance=1.2")).map(contentAsString).get
+
+      body must include("Park Plaza Westminster Bridge London")
+
+      withClue("See docs for tables: http://getbootstrap.com/docs/3.3/css/#tables") {
+        body must include regex ("<table.*class=\"table\">")
+      }
+    }
+
+    "display images in the table" in {
+
+      val body = route(app, FakeRequest(GET, "/hotels/search?destination=london&distance=1.2")).map(contentAsString).get
+
+      withClue("Your table must include an images column. Docs for HTML tables: https://www.w3schools.com/tags/tag_table.asp") {
+        body must include("<th>Images</th>")
+      }
+
+      withClue("Put the images for each hotel in the column you created using <img> tags: https://www.w3schools.com/tags/tag_img.asp") {
+        body must include("http://exp.cdn-hotels.com/hotels/4000000/3120000/3113100/3113039/3113039_31_y.jpg")
+      }
+    }
+
+    "add a form to allow the user to change their search" in {
+      val body = route(app, FakeRequest(GET, "/hotels/search?destination=london&distance=1.2")).map(contentAsString).get
+
+      withClue("See bootstrap docs for forms: http://getbootstrap.com/docs/3.3/css/#forms") {
+        body must include("<form")
+      }
+
+      withClue("Your form should include an input for the destination and distance: https://www.w3schools.com/tags/att_form_method.asp") {
+        body must include regex "<input.*name=\"destination\""
+        body must include regex "<input.*name=\"distance\""
+      }
+
+      withClue("The inputs should contain the values the user searched with: https://www.w3schools.com/tags/att_input_value.asp") {
+        body must include regex "<input.*value=\"london\""
+        body must include regex "<input.*value=\"1.2\""
+      }
+
+      withClue("There should be a search button that submits the form") {
+        body must include regex "<button.*type=\"submit\""
+      }
+
+      withClue("Make sure your form submits a GET: https://www.w3schools.com/tags/att_form_method.asp") {
+        body must include("method=\"get\"")
+      }
+    }
+
+    "include a link to the hotel on Google Maps" in {
+
+      val body = route(app, FakeRequest(GET, "/hotels/search?destination=london&distance=1.2")).map(contentAsString).get
+
+      withClue("Add a new column for a link to the hotel on google maps") {
+        body must include("<th>Location</th>")
+      }
+
+      withClue("Add a link using the <a> tag. Look at the test to see how to create the link.") {
+        val googleMapsSearchQuery = "Park Plaza Westminster Bridge London near 51.501108,-0.117331"
+        body must include(s"""<a href="http://maps.google.com/?q=$googleMapsSearchQuery">""")
+      }
+    }
+  }
+
+
 
 }

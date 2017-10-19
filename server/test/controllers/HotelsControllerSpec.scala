@@ -55,7 +55,7 @@ class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
 
     "display results in a table" in {
 
-      val body = route(app, FakeRequest(GET, "/hotels/london&distance=1.2")).map(contentAsString).get
+      val body = route(app, FakeRequest(GET, "/hotels/london?distance=1.2")).map(contentAsString).get
 
       body must include("Park Plaza Westminster Bridge London")
 
@@ -66,7 +66,7 @@ class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
 
     "display images in the table" in {
 
-      val body = route(app, FakeRequest(GET, "/hotels/london&distance=1.2")).map(contentAsString).get
+      val body = route(app, FakeRequest(GET, "/hotels/london?distance=1.2")).map(contentAsString).get
 
       withClue("Your table must include an images column. Docs for HTML tables: https://www.w3schools.com/tags/tag_table.asp") {
         body must include("<th>Images</th>")
@@ -78,7 +78,7 @@ class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
     }
 
     "add a form to allow the user to change their search" in {
-      val body = route(app, FakeRequest(GET, "/hotels/london&distance=1.2")).map(contentAsString).get
+      val body = route(app, FakeRequest(GET, "/hotels/london?distance=1.2")).map(contentAsString).get
 
       withClue("See bootstrap docs for forms: http://getbootstrap.com/docs/3.3/css/#forms") {
         body must include("<form")
@@ -105,7 +105,7 @@ class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
 
     "include a link to the hotel on Google Maps" in {
 
-      val body = route(app, FakeRequest(GET, "/hotels/london&distance=1.2")).map(contentAsString).get
+      val body = route(app, FakeRequest(GET, "/hotels/london?distance=1.2")).map(contentAsString).get
 
       withClue("Add a new column for a link to the hotel on google maps") {
         body must include("<th>Location</th>")

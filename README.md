@@ -1,8 +1,10 @@
 # Lesson 6
 
-Start by checking out the `lesson6`branch and running `sbt compile`.
+Start by checking out the `lesson6`branch and running `sbt ~run`.
  
 [//]: # (Review solutions to lesson 5. Look at the code moved to shared.)
+
+We don't have any tests for you fix this week. Instead you will need to run the app and manually test!
 
 
 ### Exercise 1 - Interactive Search

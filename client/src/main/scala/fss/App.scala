@@ -1,9 +1,12 @@
 package fss
 
-import org.scalajs.dom.document
+import org.scalajs.dom.{Event, document}
 import org.scalajs.dom.html.{Button, Input}
+import services.hotels.HotelsService
 
-import scala.scalajs.js.JSApp
+import autowire._
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("App")

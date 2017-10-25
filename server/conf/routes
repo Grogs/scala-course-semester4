@@ -15,3 +15,10 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
 GET     /time                       controllers.HomeController.time
+
+# The search results page
+GET     /hotels/search              controllers.HotelsController.search(destination: String, distance: String)
+
+# API endpoint for autowire
+GET     /hotels/api/*path           controllers.HotelsController.api(path: String)
+POST    /hotels/api/*path           controllers.HotelsController.api(path: String)

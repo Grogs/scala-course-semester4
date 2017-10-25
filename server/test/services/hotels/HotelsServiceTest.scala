@@ -6,7 +6,7 @@ class HotelsServiceTest extends FunSuite with Matchers {
 
   val catalogueService = new HotelCatalogueService
 
-  val service = new HotelsService(
+  val service = new HotelsServiceImpl(
     catalogueService,
     new GeographyService,
     new HotelFinderService(catalogueService)

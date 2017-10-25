@@ -1,0 +1,26 @@
+@import model.Hotel
+@(searchResults: Seq[Hotel])
+
+@gmapsLink(hotel: Hotel) = {
+    import hotel._, coordinates._
+    s"http://maps.google.com/?q=$name near $lat,$long"
+}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Images</th>
+    </tr>
+    @for(hotel <- searchResults) {
+        <tr>
+            <td>@hotel.name</td>
+            <td><a href="@gmapsLink(hotel)">Map</a></td>
+            <td>
+            @for(image <- hotel.images) {
+                <img height="200px" src="@image" />
+            }
+            </td>
+        </tr>
+    }
+</table>

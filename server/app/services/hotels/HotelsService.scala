@@ -4,9 +4,9 @@ import javax.inject.Inject
 
 import model.Hotel
 
-class HotelsService @Inject()(catalogueService: HotelCatalogueService,
+class HotelsServiceImpl @Inject()(catalogueService: HotelCatalogueService,
                               geographyService: GeographyService,
-                              hotelFinderService: HotelFinderService) {
+                              hotelFinderService: HotelFinderService) extends HotelsService {
 
   def search(destination: String, radius: Double): Seq[Hotel] =
     for {

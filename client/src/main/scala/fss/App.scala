@@ -22,12 +22,18 @@ object App {
     println("Hello from Scala.js")
 
     //EXERCISE 1
+    def reload(destination: String, distance: Double) = {
+      for {
+        hotels <- Client[HotelsService].search(destination, distance).call() //Note the .call()
+        table = views.html.hotelsTable(hotels).body //Yay, reused code across frontend and backend!
+      } hotelsTables().outerHTML = table
+    }
+
+    def handleChange(e: Event) = reload(destination().value, distance().value.toDouble)
 
     //Key up for when the user changes the text
     destination().onkeyup = handleChange _
     distance().onkeyup = handleChange _
-
-    //On change for when the user selects an item from the autocomplete
     distance().onchange = _ => reload(destination().value, distance().value.toDouble) //to show you can use a lambda instead
 
     searchButton().style.display = "none"
@@ -41,18 +47,7 @@ object App {
     )
   }
 
-  def handleChange(e: Event) = {
-    reload(destination().value, distance().value.toDouble)
-  }
-
-  def reload(destination: String, distance: Double) = {
-    for {
-      hotels <- Client[HotelsService].search(destination, distance).call() //Note the .call()
-      table = views.html.hotelsTable(hotels).body //Yay, reused code across frontend and backend!
-    } hotelsTables().outerHTML = table
-  }
-
-  //For exercise 3, add `if hotels.nonEmpty` to the for-comprehension.
+  //For exercise 3, add `if hotels.nonEmpty` to the for-comprehension in the reload function.
 
 }
 

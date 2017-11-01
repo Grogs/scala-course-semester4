@@ -1,35 +1,44 @@
-# Lesson 6
+# Lesson 7
 
-Start by checking out the `lesson6`branch and running `sbt ~run`.
+Start by checking out the `lesson7`branch
+
+This week we want to allow the user to display the search results on a map.
+  
+----  
+
+
+new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+        
+        will become
+        
+        
+new google.maps.Map(document.getElementById('map'), new MapOption(
+          center = new LatLng(lat = -34.397, lng = 150.644),
+          zoom = 8
+        ));
+
+----
+Steps:
+
+
+1. Add a button to open a bootstrap modal, where we'll display the map. 
+    * Documentation: https://getbootstrap.com/docs/3.3/javascript/#modals
+    * Fix the failing test in `services.hotels.Lesson7`.  
+
+2. Add an empty Map inside the modal.
+    * Put the map related code in `Client.onMapOpen' which runs every time the user opens the Map.
+    * See https://developers.google.com/maps/documentation/javascript/examples/map-simple
+
+3. Add a Marker for each Hotel. 
+    * See https://developers.google.com/maps/documentation/javascript/examples/marker-simple
+    * You'll have to call the backend for the hotels again, in the same way we did last week using the Autowire Client.
+
+4. Update the Map's LatLngBounds, so the Map focuses on the right area. 
+    * See https://coderwall.com/p/hojgtq/auto-center-and-auto-zoom-a-google-map
+
+5. Add InfoWindows to display a Hotel's description when a marker is clicked on. 
+    * See https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple
  
-[//]: # (Review solutions to lesson 5. Look at the code moved to shared.)
-
-We don't have any tests for you fix this week. Instead you will need to run the app and manually test!
-
-
-### Exercise 1 - Interactive Search
-We want to automatically update the search results as the user changes their search. 
-
-To do this, you can go through these steps on the page load. Remember, the code is in the `App` class in the client project. The body of `main` will run on page load.
-
-1. Start by adding event listeners to the destination and distance input boxes.
-    * Take a look through all the events available and decide which one to use: https://www.w3schools.com/jsref/dom_obj_event.asp
-    * Then you can use the `addEventListener` method on an element to add a new listener.
-    * add a println to verify that they work...
-2. Make them call a new function for the event handlers to call, and call it with both the destination and distance
-    * This will allow us to share the code to refresh the search results.
-    * add a println to verify that it's called...
-2. Implement to the render function, it should:
-    * Fetch the new search results using the Autowire `Client`
-        * Use `Client[HotelsService]` to call methods on the HotelsService we implemented a few weeks ago. 
-        * See the Autowire documentation: https://github.com/lihaoyi/autowire#minimal-example
-    * Generate the new table HTML using the `searchResults` template that was refactored out into the shared project.
-    * Replace the previous table with the new table.
-4. Remove the Search button, it's not needed anymore!
-
-### Exercise 2 - Autocompletion of destinations
-Take a look at `fss.Autocomplete` and hook it up to the destination input
-    
-### Exercise 3 - Only update search results for valid destinations.  
- At the moment, if you type in Paris, you get intermediate empty search results until you finish typing.  
- Instead, don't update the results if it's empty, or alternatively, show a message saying nothing matches their criteria.

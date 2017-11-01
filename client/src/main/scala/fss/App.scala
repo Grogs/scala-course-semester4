@@ -8,6 +8,8 @@ import autowire._
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
+import org.scalajs.jquery.{JQueryEventObject, jQuery}
+
 
 @JSExportTopLevel("App")
 object App {
@@ -20,7 +22,23 @@ object App {
   @JSExport
   def main(): Unit = {
     println("Hello from Scala.js")
+    initialiseInteractiveSearch()
 
+    //Add event handler for modal, per https://getbootstrap.com/docs/3.3/javascript/#modals-events
+    jQuery("#mapModal").on("shown.bs.modal", onMapOpen _)
+
+    def onMapOpen(e: JQueryEventObject) = {
+      println("This runs when the user opens the map")
+      val dest = destination().value
+      val dist = distance().value.toLong
+
+      //Add map related code here
+    }
+  }
+
+
+  //Lesson 6
+  def initialiseInteractiveSearch() = {
     //EXERCISE 1
     def reload(destination: String, distance: Double) = {
       for {
@@ -45,10 +63,9 @@ object App {
       Seq("London", "Paris", "Bath"),
       _ => handleChange(null)
     )
+
+    //For exercise 3, add `if hotels.nonEmpty` to the for-comprehension in the reload function.
   }
-
-  //For exercise 3, add `if hotels.nonEmpty` to the for-comprehension in the reload function.
-
 }
 
 

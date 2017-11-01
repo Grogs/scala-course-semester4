@@ -2,10 +2,11 @@ package services.hotels
 
 import org.jsoup.Jsoup
 import org.scalatestplus.play._
+import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.test.Helpers._
 import play.api.test._
 
-class HotelsControllerSpec extends PlaySpec with OneAppPerTest {
+class HotelsControllerSpec extends PlaySpec with GuiceOneAppPerTest {
 
   "HotelsController.search - Lesson 4" should {
 

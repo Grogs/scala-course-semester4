@@ -8,6 +8,7 @@
         <link rel='stylesheet' href='@routes.WebJarAssets.at(webJarAssets.locate("css/bootstrap.css"))'>
         <script src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.js"))" type="text/javascript"></script>
         <script src="@routes.WebJarAssets.at(webJarAssets.locate("js/bootstrap.js"))" type="text/javascript"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     </head>
     <body>
         <div id="container">
@@ -28,6 +29,13 @@
                 </form>
             </p>
 
+            <p>
+                <!--
+                    Add Modal here.
+                    See https://getbootstrap.com/docs/3.3/javascript/#modals
+                    Make sure you indeed a button to trigger the modal as well as the modal dialogue itself.
+                -->
+            </p>
 
             <p>
                 @hotelsTable(searchResults)

@@ -30,22 +30,20 @@ object App {
   //Lesson 6
   def initialiseInteractiveSearch() = {
     //EXERCISE 1
-    def reload(destination: String, distance: Double) = {
-      for {
-        hotels <- Client[HotelsService].search(destination, distance).call() //Note the .call()
-        table = views.html.hotelsTable(hotels).body //Yay, reused code across frontend and backend!
-      } hotelsTables().outerHTML = table
-    }
-
-    def handleChange(e: Event) = reload(destination().value, distance().value.toDouble)
-
-    //Key up for when the user changes the text
     distance().onchange =  (keyevent) => handleChange(keyevent)
     destination().onkeyup = handleChange
     distance().onkeyup = handleChange _
 
     searchButton().style.display = "none"
 
+    def handleChange(e: Event) = reload(destination().value, distance().value.toDouble)
+
+    def reload(destination: String, distance: Double) = {
+      for {
+        hotels <- Client[HotelsService].search(destination, distance).call() //Note the .call()
+        table = views.html.hotelsTable(hotels).body //Yay, reused code across frontend and backend!
+      } hotelsTables().outerHTML = table
+    }
 
     //EXERCISE 2
     new Autocomplete(

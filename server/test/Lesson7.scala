@@ -11,7 +11,7 @@ class Lesson7 extends FunSuite with WsScalaTestClient with GuiceOneAppPerTest wi
 
   /*
 
-    See: https://getbootstrap.com/docs/3.3/javascript/#modals
+    See: https://getbootstrap.com/docs/3.3/javascript/#live-demo
 
   */
 

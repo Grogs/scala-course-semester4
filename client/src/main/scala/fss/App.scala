@@ -1,14 +1,17 @@
 package fss
 
-import org.scalajs.dom.{Event, document}
+import org.scalajs.dom.{Element, Event, document}
 import org.scalajs.dom.html.{Button, Input}
 import services.hotels.HotelsService
-
 import autowire._
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import google.maps.InfoWindowOptions
+import model.{Coordinates, Hotel}
 
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 import org.scalajs.jquery.{JQueryEventObject, jQuery}
+
+import scala.scalajs.js
 
 
 @JSExportTopLevel("App")
@@ -32,9 +35,15 @@ object App {
       val dest = destination().value
       val dist = distance().value.toLong
 
-      //Add map related code here
+      Client[HotelsService].search(dest, dist).call().foreach { hotels =>
+        document.getElementById("mapModalLabel").innerHTML = s"Hotels within ${dist}km of $dest"
+        renderMap(document.getElementById("map"), hotels)
+      }
     }
+
   }
+
+
 
 
   //Lesson 6
@@ -66,6 +75,61 @@ object App {
 
     //For exercise 3, add `if hotels.nonEmpty` to the for-comprehension in the reload function.
   }
+
+  def renderMap(target: Element, hotels: Seq[Hotel]) = {
+
+    val opts = google.maps.MapOptions(
+      center = new google.maps.LatLng(50, 0),
+      zoom = 11
+    )
+
+    val gmap = new google.maps.Map(target, opts)
+
+    val point =
+      for {
+        hotel <- hotels
+        Coordinates(lat, long) = hotel.coordinates
+        latLng = new google.maps.LatLng(lat, long)
+      } yield {
+
+        val marker = new google.maps.Marker(google.maps.MarkerOptions(
+          position = latLng,
+          map = gmap,
+          title = hotel.name
+        ))
+
+        val infoWindow = new google.maps.InfoWindow(
+          InfoWindowOptions( content =
+            s"""
+               |<div>
+               |  <h2>${hotel.name}</h2>
+               |  <p>${hotel.descriptionHtml}</p>
+               |</div>
+            """.stripMargin
+          )
+        )
+
+        marker -> infoWindow
+      }
+
+    val markerBounds = new google.maps.LatLngBounds()
+    var activeInfoWindow = new google.maps.InfoWindow
+
+    for {
+      (marker, infoWindow) <- point
+    } yield {
+      marker.addListener("click", (_:js.Any) => {
+        activeInfoWindow.close()
+        activeInfoWindow = infoWindow
+        infoWindow.open(gmap, marker)
+      })
+      markerBounds.extend(marker.getPosition())
+    }
+
+    gmap.fitBounds(markerBounds)
+
+  }
+
 }
 
 

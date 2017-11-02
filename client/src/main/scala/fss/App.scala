@@ -24,6 +24,16 @@ object App {
     println("Hello from Scala.js")
     initialiseInteractiveSearch()
 
+    //Add event handler for modal, per https://getbootstrap.com/docs/3.3/javascript/#modals-events
+    jQuery("#mapModal").on("shown.bs.modal", onMapOpen _)
+
+    def onMapOpen(e: JQueryEventObject) = {
+      println("This runs when the user opens the map")
+      val dest = destination().value
+      val dist = distance().value.toLong
+
+      //Add map related code here
+    }
   }
 
 

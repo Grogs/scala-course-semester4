@@ -24,16 +24,6 @@ object App {
     println("Hello from Scala.js")
     initialiseInteractiveSearch()
 
-    //Add event handler for modal, per https://getbootstrap.com/docs/3.3/javascript/#modals-events
-    jQuery("#mapModal").on("shown.bs.modal", onMapOpen _)
-
-    def onMapOpen(e: JQueryEventObject) = {
-      println("This runs when the user opens the map")
-      val dest = destination().value
-      val dist = distance().value.toLong
-
-      //Add map related code here
-    }
   }
 
 
@@ -50,9 +40,9 @@ object App {
     def handleChange(e: Event) = reload(destination().value, distance().value.toDouble)
 
     //Key up for when the user changes the text
-    destination().onkeyup = handleChange _
+    distance().onchange =  (keyevent) => handleChange(keyevent)
+    destination().onkeyup = handleChange
     distance().onkeyup = handleChange _
-    distance().onchange = _ => reload(destination().value, distance().value.toDouble) //to show you can use a lambda instead
 
     searchButton().style.display = "none"
 

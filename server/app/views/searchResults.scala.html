@@ -1,5 +1,5 @@
 @import model.Hotel
-@(destination: String, radius: String, searchResults: Seq[Hotel], pricesByHotelId: Map[Long, String])(webJarAssets: WebJarAssets)
+@(destination: String, radius: String, searchResults: Seq[Hotel])(webJarAssets: WebJarAssets)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,7 @@
             </p>
 
             <p>
-                @hotelsTable(searchResults, pricesByHotelId)
+                @hotelsTable(searchResults)
             </p>
 
         </div>

@@ -10,7 +10,7 @@ Steps:
 
     Hints:
       - Use the method provided on `HotelPriceService`.
-      - Check the new parameter expected from `searchResults.scala.html`.
+      - Check the new parameter expected from `hotelsTable.scala.html`.
         
 2. Include the prices on each row of the hotelsTable, so that, you can see the price of each hotel.
 

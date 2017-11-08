@@ -23,15 +23,11 @@ class HotelsController @Inject()(hotelsService: HotelsService, hotelPriceService
 
     if (distance > 0) {
       val foundHotels: Seq[Hotel] = hotelsService.search(destination, distance)
-      val prices: Map[Long, String] = hotelPriceService
-        .findPrices(foundHotels.map(_.id))
-        .mapValues(p => s"${p.amount}${p.currency}")
 
       Ok(
         views.html.searchResults(
           destination, radius,
-          foundHotels,
-          prices
+          foundHotels
         )(webJarAssets)
       )
     } else {

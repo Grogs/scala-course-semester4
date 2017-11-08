@@ -128,7 +128,7 @@ class HotelsControllerSpec extends PlaySpec with GuiceOneAppPerTest {
       val body = route(app, FakeRequest(GET, "/hotels/search?destination=london&distance=1.2")).map(contentAsString).get
 
       body must include("Park Plaza Westminster Bridge London")
-      body must include ("298 £")
+      body must include ("298£")
     }
   }
 

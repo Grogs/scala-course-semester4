@@ -2,17 +2,22 @@
 
 Start by checking out the `lesson8` branch
 
-This week we want to allow the user to check the price of each hotel.
+This week we want to display the prices of every hotel to the user.
   
 Steps:
 
-We will create a new endpoint which will allow us to check the price of a hotel, and this endpoint will be called from the view to check each price.
+1. In `HotelsController`, add the hotel prices in the response.
 
-Part A - Add endpoint for individual prices
-1. Create a method that will allow you to get the price in `HotelPriceService`
-2. Add the new endpoint in `HotelsController` and add a route
-3. Add a link to the new endpoint per hotel, so it can be checked individually
-4. Modify the link to be a button that displays the price in a modal window
+    Hints:
+      - Use the method provided on `HotelPriceService`.
+      - Check the new parameter expected from `searchResults.scala.html`.
+        
+2. Include the prices on each row of the hotelsTable, so that, you can see the price of each hotel.
 
+   Hints:
+     - Fix the `HotelsControllerSpec` test.
+     
+3. When we change our search, we want to still display the prices. 
 
-Part B - Include all prices on table
+   Hints:
+     - Update the method `initialiseInteractiveSearch` on `App` when the table is re-populated.

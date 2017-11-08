@@ -25,7 +25,7 @@ class HotelsController @Inject()(hotelsService: HotelsService, hotelPriceService
       val foundHotels: Seq[Hotel] = hotelsService.search(destination, distance)
       val prices: Map[Long, String] = hotelPriceService
         .findPrices(foundHotels.map(_.id))
-        .mapValues(p => s"${p.amount} ${p.currency}")
+        .mapValues(p => s"${p.amount}${p.currency}")
 
       Ok(
         views.html.searchResults(

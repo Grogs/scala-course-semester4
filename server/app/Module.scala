@@ -1,7 +1,7 @@
 import java.time.Clock
 
 import com.google.inject.AbstractModule
-import services.hotels.{HotelsService, HotelsServiceImpl}
+import services.hotels.{HotelPriceService, HotelPriceServiceImpl, HotelsService, HotelsServiceImpl}
 import services.{ApplicationTimer, AtomicCounter, Counter}
 
 /**
@@ -26,6 +26,7 @@ class Module extends AbstractModule {
     bind(classOf[Counter]).to(classOf[AtomicCounter])
 
     bind(classOf[HotelsService]).to(classOf[HotelsServiceImpl])
+    bind(classOf[HotelPriceService]).to(classOf[HotelPriceServiceImpl])
   }
 
 }

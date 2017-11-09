@@ -6,18 +6,19 @@ This week we want to display the prices of every hotel to the user.
   
 Steps:
 
-1. In `HotelsController`, add the hotel prices in the response.
+1. In `HotelsController`, add the hotel prices into the search page and pass it down to the hotelsTable template.
 
     Hints:
       - Use the method provided on `HotelPriceService`.
       - Check the new parameter expected from `hotelsTable.scala.html`.
         
-2. Include the prices on each row of the hotelsTable, so that, you can see the price of each hotel.
+2. Update the hotelsTable template so each hotel row has a price.
 
    Hints:
      - Fix the `HotelsControllerSpec` test.
      
-3. When we change our search, we want to still display the prices. 
+3. So far, only the initial page load will include prices. Now update the interactive search to fetch the new prices. 
 
    Hints:
      - Update the method `initialiseInteractiveSearch` on `App` when the table is re-populated.
+     - You can use the autowire Client again, but now you'll need to call a different service.

@@ -59,7 +59,6 @@ object App {
       for {
         hotels <- Client[HotelsService].search(destination, distance).call() //Note the .call()
         ids = hotels.map(_.id)
-        prices <- Client[HotelPriceService].findPrices(ids).call()
         table = views.html.hotelsTable(hotels).body //Yay, reused code across frontend and backend!
       } {
         hotelsTables().outerHTML = table

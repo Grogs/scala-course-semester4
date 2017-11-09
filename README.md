@@ -11,7 +11,7 @@ Steps:
     * Fix the failing test in `services.hotels.Lesson7`.  
 
 2. Add an empty Map inside the modal.
-    * Put the map related code in the `onMapOpen' function in `Client` which runs every time the user opens the Map.
+    * Put the map related code in the `onMapOpen' function in `App` which runs every time the user opens the Map.
     * See https://developers.google.com/maps/documentation/javascript/examples/map-simple
     * NOTE: In the docs a JavaScript object literal is used when creating the `Map`, and the center's latitude and logitude.
       But we don't pass object literals from ScalaJS if we can avoid it. We want type safety! 
